@@ -1,6 +1,6 @@
 import qs from 'query-string';
 
-export const DOMAIN = 'https://localhost:3001/';
+export const DOMAIN = 'https://localhost:3001';
 
 class ApiCall {
   constructor(domain) {

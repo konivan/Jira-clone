@@ -5,13 +5,13 @@ import RootStore from './store';
 
 const store = RootStore.create({});
 
-const StoreContent = createContext(store);
+export const StoreContext = createContext(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <StoreContent.Provider value={store}>
+    <StoreContext.Provider value={store}>
       <App />
-    </StoreContent.Provider>
+    </StoreContext.Provider>
   </React.StrictMode>
 );
