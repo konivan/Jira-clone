@@ -1,10 +1,17 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../../hooks/useStore';
+import useStore from '../../hooks/useStore';
 import { Box, Grid, Typography, Paper } from '@material-ui/core';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import Column from './Column';
 
-function getListStyle() {};
+function getListStyle(isDraggingOver) {
+  return {
+    backgroundColor: isDraggingOver ? 'lightblue' : 'lightgray',
+    padding: 8,
+    minHeight: 500,
+  }
+};
 
 const Dashboard = () => {
   const { boards } = useStore();
@@ -12,7 +19,7 @@ const Dashboard = () => {
     <Box p={2}>
       <DragDropContext onDragEnd={() => {}}>
       <Grid container>
-        {boards.active?.sections(section => {
+        {boards.active?.sections?.map(section => {
           return (
             <Grid item key={section.id}>
               <Paper>

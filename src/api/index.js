@@ -1,23 +1,25 @@
 import qs from 'query-string';
 
-export const DOMAIN = 'https://localhost:3001';
+export const ENDPOINT = '//localhost:3001/';
 
 class ApiCall {
   constructor(domain) {
     this.domain = domain;
   }
+
   async perform(url, data, config) {
-    const request = await fetch(`${this.domain}/${url}`, {
+    const request = await fetch(`${this.domain}${url}`, {
       ...config,
       body: JSON.stringify(data),
       headers: {
-        'Content-type': 'application-json'
+        'Content-Type': 'application/json',
       }
     });
+
     return await request.json();
   }
 
-  async get(path, searchParams = {}) {
+  async get(path, searchParams) {
     return await this.perform(`${path}?${qs.stringify(searchParams)}`);
   }
 
@@ -34,11 +36,10 @@ class ApiCall {
   }
 
   async delete(path) {
-    return await this.perform(path, {
+    return await this.perform(path, null, {
       method: 'DELETE'
     });
   }
-
 }
 
-export default new ApiCall(DOMAIN);
+export default new ApiCall(ENDPOINT);

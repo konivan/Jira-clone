@@ -1,6 +1,8 @@
 import { Card } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import Task from './Task';
 
 function getItemStyle(draggableStyle) {
   return {
@@ -17,19 +19,22 @@ const Column = ({section}) => {
         return (
           <Draggable draggableId={task.id} key={task.id} index={index}>
             {(provided) => (
-              <Card>
+              <Card
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
-                style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                style={getItemStyle(
+                  provided.draggableProps.style
+                )}
+              >
                 <Task task={task} />
               </Card>
             )}
           </Draggable>
-        )
+        );
       })}
     </div>
   );
 };
 
-export default Column;
+export default observer(Column);
